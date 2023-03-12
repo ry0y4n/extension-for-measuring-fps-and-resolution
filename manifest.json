@@ -1,0 +1,22 @@
+{
+    "name": "FPS & Resolution Counter",
+    "version": "0.1",
+    "manifest_version": 3,
+    "description": "動画のFPSと解像度を表示してくれる拡張機能",
+    "permissions": [
+        "tabs"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://*/*", "http://*/*"],
+        "js": ["content.js"]
+    }],
+    "web_accessible_resources": [
+        {
+            "resources": ["embed.js"],
+            "matches": ["https://*/*", "http://*/*"]
+        }
+    ]
+}
