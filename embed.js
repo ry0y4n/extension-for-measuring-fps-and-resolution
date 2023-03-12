@@ -10,7 +10,7 @@ function updateFpsLabel(now, metadata) {
 
     const elapsed = (now - startTime) / 1000.0;
     const fps = (++frame / elapsed).toFixed(3);
-    document.getElementById('fps').innerHTML = `${fps}`;
+    document.getElementById('fps').innerHTML = `FPS: ${fps}<br />Width: ${metadata.width}<br />Height: ${metadata.height}`;
 
     videoHandle = videoElement.requestVideoFrameCallback(updateFpsLabel);
 };
@@ -47,9 +47,8 @@ window.addEventListener('message', () => {
                     newElement.style.position = 'absolute';
                     newElement.style.top = '20px';
                     newElement.style.left = '20px';
-                    newElement.style.backgroundColor = "white";
-                    newElement.style.opacity = 0.8;
-                    newElement.style.fontSize = "48px";
+                    newElement.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
+                    newElement.style.fontSize = "32px";
                     videoElement.after(newElement);
                 } else {
                     videoElement.cancelVideoFrameCallback(videoHandle);
