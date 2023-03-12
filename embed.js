@@ -59,6 +59,11 @@ window.addEventListener('message', () => {
                     let newElement = document.createElement('p');
                     newElement.setAttribute('id', 'fps')
                     newElement.textContent = '0';
+                    newElement.style.position = 'absolute';
+                    newElement.style.top = '20px';
+                    newElement.style.left = '20px';
+                    newElement.style.backgroundColor = "white";
+                    newElement.style.opacity = 0.8
                     videoElement.after(newElement);
                 } else {
                     videoElement.cancelVideoFrameCallback(videoHandle);
