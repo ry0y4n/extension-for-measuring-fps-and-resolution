@@ -3,7 +3,7 @@ const script = document.createElement('script');
 script.src = chrome.runtime.getURL('embed.js');
 head.appendChild(script);
 
-// popupからのメッセージを受け取り、embedに送信します
+// popup -> embed
 chrome.runtime.onMessage.addListener((request, sender) => {
     window.postMessage(
       { type: 'FROM_CONTENT', action: request.action, data: request.data },
@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     );
 })
 
-// embedからのメッセージを受け取り、popupに送信します
+// embed -> popup
 window.addEventListener('message', () => {
     if (event.source != window) {
       return
@@ -24,10 +24,9 @@ window.addEventListener('message', () => {
                 data: event.data.data
             });
             break;
-        case 'GET_WINDOW':
+        case 'MEASURE':
             chrome.runtime.sendMessage({
                 action: event.data.action,
-                data: event.data.data
             });
         break
       }

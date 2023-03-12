@@ -15,7 +15,7 @@ function updateFpsLabel(now, metadata) {
     videoHandle = videoElement.requestVideoFrameCallback(updateFpsLabel);
 };
 
-// content_scriptsからのメッセージを受け取り、windowオブジェクトを取得して送信します
+// content -> embed
 window.addEventListener('message', () => {
     if (event.source != window) {
         return
@@ -38,9 +38,7 @@ window.addEventListener('message', () => {
                 }
                 window.postMessage({ type: 'FROM_EMBED', action: 'GET_VIDEO', data }, '*');
                 break;
-            case 'GET_WINDOW':
-                // const data = JSON.stringify(window)
-                data = {"test": "value"}
+            case 'MEASURE':
                 if (event.data.data["measure"] == "start") {
                     videoElement.requestVideoFrameCallback(updateFpsLabel);
                     let newElement = document.createElement('p');
@@ -57,8 +55,8 @@ window.addEventListener('message', () => {
                     videoElement.cancelVideoFrameCallback(videoHandle);
                     document.getElementById('fps').remove();
                 }
-                window.postMessage({ type: 'FROM_EMBED', action: 'GET_WINDOW', data }, '*');
-                // document.getElementsByClassName("o-noteContentHeader__title")[0].innerHTML = "hoge"
+                // embed -> content
+                window.postMessage({ type: 'FROM_EMBED', action: 'MEASURE' }, '*');
                 break
         }
     }

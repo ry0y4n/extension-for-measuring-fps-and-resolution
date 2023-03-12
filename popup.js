@@ -11,7 +11,7 @@ async function getWindowObject() {
         } else {
             data["measure"] = "stop";
         }
-        chrome.tabs.sendMessage(tab.id, { action: "GET_WINDOW", data: data })
+        chrome.tabs.sendMessage(tab.id, { action: "MEASURE", data: data })
             .then((response) => {
                 if (flagMeasuring) {
                     button.innerHTML = "計測Start";
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
     button = document.getElementById("send")
     button.addEventListener("click", getWindowObject);
 
+    // content -> popup
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         switch(request.action) {
             case 'GET_VIDEO':
@@ -49,13 +50,14 @@ document.addEventListener("DOMContentLoaded", function() {
                     button.innerHTML = "計測Stop";
                 }
                 break;
-            case 'GET_WINDOW':
+            case 'MEASURE':
                 break
         }
     });
 
     let currentTab = getCurrentTab();
     currentTab.then((tab) => {
+        // popup -> content
         chrome.tabs.sendMessage(tab.id, {action: "GET_VIDEO"})
             .then((response) => {
             })
