@@ -15,21 +15,8 @@ function updateFpsLabel(now, metadata) {
     videoHandle = videoElement.requestVideoFrameCallback(updateFpsLabel);
 };
 
-// window.addEventListener('load', (event) => {
-//     console.log("page is fully loaded");
-//     if (videoElement != undefined) {
-//         videoElement.requestVideoFrameCallback(updateFpsLabel);
-//         let newElement = document.createElement('p');
-//         newElement.setAttribute('id', 'fps')
-//         newElement.textContent = '0';
-//         videoElement.after(newElement);
-//     }
-// });
-
 // content_scriptsからのメッセージを受け取り、windowオブジェクトを取得して送信します
 window.addEventListener('message', () => {
-    console.log("this is embed");
-
     if (event.source != window) {
         return
     }

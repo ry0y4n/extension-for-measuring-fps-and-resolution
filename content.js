@@ -5,7 +5,6 @@ head.appendChild(script);
 
 // popupからのメッセージを受け取り、embedに送信します
 chrome.runtime.onMessage.addListener((request, sender) => {
-    console.log("this is content(receive from popup)");
     window.postMessage(
       { type: 'FROM_CONTENT', action: request.action, data: request.data },
       '*'
@@ -14,7 +13,6 @@ chrome.runtime.onMessage.addListener((request, sender) => {
 
 // embedからのメッセージを受け取り、popupに送信します
 window.addEventListener('message', () => {
-    console.log("this is content(receivefrom embed)");
     if (event.source != window) {
       return
     }

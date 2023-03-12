@@ -37,10 +37,8 @@ document.addEventListener("DOMContentLoaded", function() {
     button.addEventListener("click", getWindowObject);
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        console.log("this is popup (receive from content)");
         switch(request.action) {
             case 'GET_VIDEO':
-                console.log(request.data);
                 if (request.data["isVideo"]) {
                     document.getElementById('send').disabled = false;
                 } else {
@@ -52,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 break;
             case 'GET_WINDOW':
-                console.log(request.data);
                 break
         }
     });
