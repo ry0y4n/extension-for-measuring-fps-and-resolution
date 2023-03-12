@@ -1,9 +1,18 @@
+let flagMeasuring = false;
+
 async function getWindowObject() {
     const tab = await getCurrentTab();
     if (tab != null) {
         // content_scriptsにメッセージを送信
-        chrome.tabs.sendMessage(tab.id, {action: "GET_WINDOW"})
+        let data = {};
+        if (!flagMeasuring) {
+            data["measure"] = "start";
+        } else {
+            data["measure"] = "stop";
+        }
+        chrome.tabs.sendMessage(tab.id, { action: "GET_WINDOW", data: data })
             .then((response) => {
+                flagMeasuring = !flagMeasuring;
             })
             .catch((error) => {
                 console.log(error)

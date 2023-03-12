@@ -21,7 +21,6 @@ window.addEventListener('message', () => {
     if (event.data.type && event.data.type === 'FROM_EMBED') {
       switch (event.data.action) {
         case 'GET_VIDEO':
-            console.log(event.data.data)
             chrome.runtime.sendMessage({
                 action: event.data.action,
                 data: event.data.data

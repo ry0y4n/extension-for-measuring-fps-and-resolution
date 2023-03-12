@@ -1,6 +1,7 @@
 let videoElement = document.getElementsByTagName('video')[0];
 let frame = 0;
 let startTime = 0.0;
+let videoHandle;
 
 function updateFpsLabel(now, metadata) {
     if (startTime === 0.0) {
@@ -11,7 +12,7 @@ function updateFpsLabel(now, metadata) {
     const fps = (++frame / elapsed).toFixed(3);
     document.getElementById('fps').innerHTML = `${fps}`;
 
-    videoElement.requestVideoFrameCallback(updateFpsLabel);
+    videoHandle = videoElement.requestVideoFrameCallback(updateFpsLabel);
 };
 
 // window.addEventListener('load', (event) => {
@@ -47,12 +48,16 @@ window.addEventListener('message', () => {
             case 'GET_WINDOW':
                 // const data = JSON.stringify(window)
                 data = {"test": "value"}
-                if (videoElement != undefined) {
+                console.log(event.data.data["measure"])
+                if (event.data.data["measure"] == "start") {
                     videoElement.requestVideoFrameCallback(updateFpsLabel);
                     let newElement = document.createElement('p');
                     newElement.setAttribute('id', 'fps')
                     newElement.textContent = '0';
                     videoElement.after(newElement);
+                } else {
+                    videoElement.cancelVideoFrameCallback(videoHandle);
+                    document.getElementById('fps').remove();
                 }
                 window.postMessage({ type: 'FROM_EMBED', action: 'GET_WINDOW', data }, '*');
                 // document.getElementsByClassName("o-noteContentHeader__title")[0].innerHTML = "hoge"
