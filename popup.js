@@ -1,4 +1,5 @@
 let flagMeasuring = false;
+let button;
 
 async function getWindowObject() {
     const tab = await getCurrentTab();
@@ -12,6 +13,11 @@ async function getWindowObject() {
         }
         chrome.tabs.sendMessage(tab.id, { action: "GET_WINDOW", data: data })
             .then((response) => {
+                if (flagMeasuring) {
+                    button.innerHTML = "計測Start";
+                } else {
+                    button.innerHTML = "計測Stop";
+                }
                 flagMeasuring = !flagMeasuring;
             })
             .catch((error) => {
@@ -27,7 +33,7 @@ async function getCurrentTab() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    const button = document.getElementById("send");
+    button = document.getElementById("send")
     button.addEventListener("click", getWindowObject);
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -42,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 if (request.data["isMeasuring"]) {
                     flagMeasuring = true;
+                    button.innerHTML = "計測Stop";
                 }
                 break;
             case 'GET_WINDOW':

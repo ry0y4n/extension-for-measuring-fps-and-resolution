@@ -63,7 +63,8 @@ window.addEventListener('message', () => {
                     newElement.style.top = '20px';
                     newElement.style.left = '20px';
                     newElement.style.backgroundColor = "white";
-                    newElement.style.opacity = 0.8
+                    newElement.style.opacity = 0.8;
+                    newElement.style.fontSize = "48px";
                     videoElement.after(newElement);
                 } else {
                     videoElement.cancelVideoFrameCallback(videoHandle);
