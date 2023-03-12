@@ -39,16 +39,21 @@ window.addEventListener('message', () => {
         switch (event.data.action) {
             case 'GET_VIDEO':
                 if (videoElement != undefined) {
-                    data = { "isVideo": true };
+                    data["isVideo"] = true;
                 } else {
-                    data = { "isVideo": false };
+                    data["isVideo"] = false;
+                }
+                let elment = document.getElementById('fps');
+                if (elment != undefined) {
+                    data["isMeasuring"] = true;
+                } else {
+                    data["isMeasuring"] = false;
                 }
                 window.postMessage({ type: 'FROM_EMBED', action: 'GET_VIDEO', data }, '*');
                 break;
             case 'GET_WINDOW':
                 // const data = JSON.stringify(window)
                 data = {"test": "value"}
-                console.log(event.data.data["measure"])
                 if (event.data.data["measure"] == "start") {
                     videoElement.requestVideoFrameCallback(updateFpsLabel);
                     let newElement = document.createElement('p');

@@ -40,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     document.getElementById('send').disabled = true;
                 }
+                if (request.data["isMeasuring"]) {
+                    flagMeasuring = true;
+                }
                 break;
             case 'GET_WINDOW':
                 console.log(request.data);
