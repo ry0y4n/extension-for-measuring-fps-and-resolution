@@ -14,9 +14,9 @@ async function getWindowObject() {
         chrome.tabs.sendMessage(tab.id, { action: "MEASURE", data: data })
             .then((response) => {
                 if (flagMeasuring) {
-                    button.innerHTML = "計測Start";
+                    button.innerHTML = "START";
                 } else {
-                    button.innerHTML = "計測Stop";
+                    button.innerHTML = "STOP";
                 }
                 flagMeasuring = !flagMeasuring;
             })
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 if (request.data["isMeasuring"]) {
                     flagMeasuring = true;
-                    button.innerHTML = "計測Stop";
+                    button.innerHTML = "STOP";
                 }
                 break;
             case 'MEASURE':
