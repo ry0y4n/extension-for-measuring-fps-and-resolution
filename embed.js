@@ -49,6 +49,8 @@ window.addEventListener('message', () => {
                     newElement.style.left = '20px';
                     newElement.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
                     newElement.style.fontSize = "32px";
+                    newElement.style.zIndex = 2147483647;
+                    newElement.style.lineHeight = 1.0;
                     videoElement.after(newElement);
                 } else {
                     videoElement.cancelVideoFrameCallback(videoHandle);
